@@ -1,2 +1,2 @@
-# SAD-P1
+# Pràctica 1 de SAD
 EditableBufferedReader
