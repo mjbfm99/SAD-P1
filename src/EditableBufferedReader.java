@@ -6,7 +6,6 @@ public class EditableBufferedReader extends BufferedReader {
 
 	public EditableBufferedReader(Reader in) {
 		super(in);
-		setRaw();
 	}
 	
 	public void setRaw() {
@@ -36,18 +35,24 @@ public class EditableBufferedReader extends BufferedReader {
 	}
 	
 	public int read() throws IOException {
-		int ret = 0;
-		setRaw();
-		while (true) {
-			System.out.print(super.read() + " ");
-		}
+		// Usar scanner
+		System.in.
+		String arrobaComoCadena = Character.toString((char) ret);
+		//System.out.print(arrobaComoCadena);
+		return ret;
 	}
 	
 	public String readLine() throws IOException {
-		String str = null;
-		int c;
-		c = read();
-		System.out.println(c);
-		return str;
+		Line linea = new Line();
+		setRaw();
+		int ch = 0;
+		do {
+			ch = read();
+			if(ch > 31) {
+				linea.addChar((char) ch);
+			}
+		} while(ch != 13);
+		unsetRaw();
+		return Character.toString((char) read());
 	}
 } 
