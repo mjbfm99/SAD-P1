@@ -4,18 +4,31 @@ import java.io.Reader;
 
 public class EditableBufferedReader extends BufferedReader {
 
-	public EditableBufferedReader(Reader in) throws InterruptedException, IOException {
+	public EditableBufferedReader(Reader in) {
 		super(in);
+		setRaw();
 	}
 	
-	public void setRaw() throws InterruptedException, IOException {
+	public void setRaw() {
 	    String[] cmd = {"/bin/sh", "-c", "stty raw </dev/tty"};
-	    Runtime.getRuntime().exec(cmd).waitFor();
+	       try {
+			Runtime.getRuntime().exec(cmd).waitFor();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void unsetRaw(){
-		try {
-			Runtime.getRuntime().exec("stty -echo cooked");
+		String[] cmd = {"/bin/sh", "-c", "stty cooked </dev/tty"};
+	       try {
+			Runtime.getRuntime().exec(cmd).waitFor();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -24,12 +37,7 @@ public class EditableBufferedReader extends BufferedReader {
 	
 	public int read() throws IOException {
 		int ret = 0;
-		try {
-			setRaw();
-		} catch (InterruptedException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		setRaw();
 		while (true) {
 			System.out.print(super.read() + " ");
 		}
