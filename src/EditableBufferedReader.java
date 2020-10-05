@@ -4,6 +4,17 @@ import java.io.Reader;
 
 public class EditableBufferedReader extends BufferedReader {
 
+	private final static int DERECHA = -62;
+	private final static int IZQUIERDA = -61;
+	private final static int ARRIBA = -64;
+	private final static int ABAJO = -63;
+	private final static int HOME = -57;
+	private final static int END = -59;
+	private final static int SUPR = -3;
+	private final static int BACKSPACE = -2;
+	private final static int ESC = -102;
+	private final static int CTRL_C = 3;
+	
 	public EditableBufferedReader(Reader in) {
 		super(in);
 	}
@@ -35,10 +46,21 @@ public class EditableBufferedReader extends BufferedReader {
 	}
 	
 	public int read() throws IOException {
-		// Usar scanner
-		System.in.
-		String arrobaComoCadena = Character.toString((char) ret);
-		//System.out.print(arrobaComoCadena);
+		int ret = super.read();
+		
+		if(ret == 27) {
+			ret = super.read();
+			ret = super.read();
+				if(ret != 51) {
+					ret = ret - 129;
+				}
+				else {
+					ret = super.read() - 129;
+				}
+		}		
+		
+		/*String arrobaComoCadena = Character.toString((char) ret);
+		System.out.print(ret);*/
 		return ret;
 	}
 	

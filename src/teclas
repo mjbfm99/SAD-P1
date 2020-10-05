@@ -1,0 +1,10 @@
+DERECHA     27 91 67 
+IZQUIERDA   27 91 68
+ARRIBA      27 91 65
+ABAJO       27 91 66
+HOME        27 91 72
+END         27 91 70
+SUPR        27 91 51 126
+BACKSPACE   127
+ESC         27
+CTRL-C      3
