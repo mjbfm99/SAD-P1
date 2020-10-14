@@ -51,13 +51,11 @@ public class Line {
 	}
 	
 	public void addChar(char c) {
-		//content = content + Character.toString(c);
-		//incPosition();
 		content = content.substring(0, cur_pos) + c + content.substring(cur_pos);
 		incPosition();
 	}
 	
 	public String toString() {
-		return content;
+		return "Line: " + content + ", position: " + getPosition();
 	}
 }

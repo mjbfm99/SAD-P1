@@ -88,6 +88,8 @@ public class EditableBufferedReader extends BufferedReader {
 					linea.goToEnd();
 					break;
 				case BACKSPACE:
+					System.out.print("\b\b\b   ");
+					System.out.print("\b\b\b");
 					linea.backspace();
 					break;
 				default:
@@ -96,6 +98,7 @@ public class EditableBufferedReader extends BufferedReader {
 					
 			}
 		} while(ch != 13);
+		System.out.print("\b\b  ");
 		unsetRaw();
 		return linea.getContent();
 	}
