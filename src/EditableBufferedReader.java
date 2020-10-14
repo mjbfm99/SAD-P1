@@ -57,10 +57,10 @@ public class EditableBufferedReader extends BufferedReader {
 				else {
 					ret = super.read() - 129;
 				}
-		}		
-		
-		/*String arrobaComoCadena = Character.toString((char) ret);
-		System.out.print(ret);*/
+		}
+		else if(ret == 127) {
+			ret = ret - 129;
+		}
 		return ret;
 	}
 	
@@ -73,8 +73,30 @@ public class EditableBufferedReader extends BufferedReader {
 			if(ch > 31) {
 				linea.addChar((char) ch);
 			}
+			else {
+				switch (ch) {
+				case DERECHA:
+					linea.incPosition();
+					break;
+				case IZQUIERDA:
+					linea.decPosition();
+					break;
+				case HOME:
+					linea.goToHome();
+					break;
+				case END:
+					linea.goToEnd();
+					break;
+				case BACKSPACE:
+					linea.backspace();
+					break;
+				default:
+					break;
+				}
+					
+			}
 		} while(ch != 13);
 		unsetRaw();
-		return Character.toString((char) read());
+		return linea.getContent();
 	}
 } 

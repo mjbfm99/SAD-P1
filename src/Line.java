@@ -19,11 +19,31 @@ public class Line {
 	}
 	
 	public void incPosition() {
-		cur_pos++;
+		if(cur_pos != content.length()) {
+			cur_pos++;
+		}
 	}
 	
 	public void decPosition() {
-		cur_pos--;
+		if(cur_pos != 0) {
+			cur_pos--;
+		}
+	}
+	
+	public void goToEnd() {
+		cur_pos = 0;
+	}
+	
+	public void goToHome() {
+		cur_pos = content.length();
+	}
+	
+	public void backspace() {
+		//Delete last character
+		if(content.length() != 0) {
+			content = content.substring(0, content.length() - 1);
+			cur_pos--;
+		}
 	}
 	
 	public String getContent() {
