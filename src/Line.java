@@ -42,7 +42,7 @@ public class Line {
 		//Delete last character
 		if(content.length() != 0) {
 			content = content.substring(0, content.length() - 1);
-			cur_pos--;
+			decPosition();
 		}
 	}
 	
@@ -51,7 +51,9 @@ public class Line {
 	}
 	
 	public void addChar(char c) {
-		content = content + Character.toString(c);
+		//content = content + Character.toString(c);
+		//incPosition();
+		content = content.substring(0, cur_pos) + c + content.substring(cur_pos);
 		incPosition();
 	}
 	
