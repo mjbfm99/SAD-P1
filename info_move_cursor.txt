@@ -1,0 +1,54 @@
+
+
+Interesante: 
+
+Mirar que es el codigo ANSI: 
+	- Parece ser que son unos comandos interpretados por los antiguos terminales de texto. 
+
+
+
+
+
+Con esto mueves el cursor ole ole ahora hay que saber como extrear la posicion
+
+
+static void gotoxy(int line ,int row) {
+      System.out.print("\033[" + line + ";" + row + "H");
+} 
+
+
+Buscar posicion pantalla en java
+si ejectutamos en la terminal: 
+
+	'echo $COLUMNS' nos devuelve el numero de filas del terminal, es decir la anchura
+
+ANSI CODES: 
+
+
+- Position the Cursor:
+  \033[<L>;<C>H
+     Or
+  \033[<L>;<C>f
+  puts the cursor at line L and column C.
+- Move the cursor up N lines:
+  \033[<N>A
+- Move the cursor down N lines:
+  \033[<N>B
+- Move the cursor forward N columns:
+  \033[<N>C
+- Move the cursor backward N columns:
+  \033[<N>D
+
+- Clear the screen, move to (0,0):
+  \033[2J
+- Erase to end of line:
+  \033[K
+
+- Save cursor position:
+  \033[s
+- Restore cursor position:
+  \033[u
+
+we must work with an array of char or a string buffer, I think the class STringBuilder will
+provide us the tools neceseri to work with 1 caracter by one . Will make easer the way we 
+interact with the terminal an control everything.
