@@ -66,6 +66,7 @@ public class EditableBufferedReader extends BufferedReader {
 	
 	public String readLine() throws IOException {
 		Line linea = new Line();
+		System.out.print("\033[H\033[2J"); //poner 0,0
 		setRaw();
 		int ch = 0;
 		do {
@@ -79,6 +80,7 @@ public class EditableBufferedReader extends BufferedReader {
 					linea.incPosition();
 					break;
 				case IZQUIERDA:
+					//linea.refresh(5);
 					linea.decPosition();
 					break;
 				case HOME:
@@ -88,8 +90,6 @@ public class EditableBufferedReader extends BufferedReader {
 					linea.goToEnd();
 					break;
 				case BACKSPACE:
-					System.out.print("\b\b\b   ");
-					System.out.print("\b\b\b");
 					linea.backspace();
 					break;
 				default:
@@ -97,7 +97,7 @@ public class EditableBufferedReader extends BufferedReader {
 				}
 					
 			}
-		} while(ch != 13);
+		} while(ch != 13 && ch != 3);
 		System.out.print("\b\b  ");
 		unsetRaw();
 		return linea.getContent();
