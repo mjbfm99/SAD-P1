@@ -14,6 +14,10 @@ public class Line {
 	public int getPosition() {
 		return cur_pos;
 	}
+
+	public int getLength() {
+		return sb.length();
+	}
 	
 	public void setPosition(int position) {
 		//x = position % columns;
@@ -22,7 +26,7 @@ public class Line {
 	}
 	
 	public void incPosition() {
-		if(cur_pos != sb.length()) {
+		if(cur_pos < sb.length()) {
 			cur_pos++;
 		}
 	}
@@ -30,29 +34,40 @@ public class Line {
 	public void decPosition() {
 		if(cur_pos != 0) {
 			cur_pos--;
-			System.out.print("\033[H\033[2J");
-			System.out.print(sb);
-			System.out.print("\033[2D");
-			System.out.print("\033[s");
+			// System.out.print("\033[H\033[2J");
+			// System.out.print(sb);
+			// System.out.print("\033[2D");
+			// System.out.print("\033[s");
 		}
 	}
 	
-	public void goToHome() {
+	public int goToHome() { // move you to the begin of the line = cursor pos
+								// and reset de var
+		int aux=cur_pos;
 		cur_pos = 0;
+		return aux;
 	}
 	
-	public void goToEnd() {
-		cur_pos = sb.length();
+	public int goToEnd() {
+		if(cur_pos > 0) {
+			int dif = sb.length() - cur_pos;
+			cur_pos = sb.length();
+			return dif;
+		}else{
+			cur_pos = sb.length();
+			return cur_pos;
+		}
+
 	}
-	
-	public void refresh(int n) {
-		System.out.print("\b\b\b\b");
-		System.out.print("\033[D");
-		//System.out.print("\033[s");
-		System.out.print(sb.substring(cur_pos));
-		int offset = sb.length() - cur_pos;
-		System.out.print("\033[" + offset + "D");
-	}
+
+	// public void refresh(int n) {
+	// 	System.out.print("\b\b\b\b");
+	// 	System.out.print("\033[D");
+	// 	//System.out.print("\033[s");
+	// 	System.out.print(sb.substring(cur_pos));
+	// 	int offset = sb.length() - cur_pos;
+	// 	System.out.print("\033[" + offset + "D");
+	// }
 	
 	public void backspace() {
 		//Delete last character
@@ -60,7 +75,6 @@ public class Line {
 			//content = content.substring(0, content.length() - 1);
 			sb.deleteCharAt(cur_pos - 1);
 			decPosition();
-			refresh(3);
 		}
 	}
 	

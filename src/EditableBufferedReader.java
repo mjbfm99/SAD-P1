@@ -73,24 +73,32 @@ public class EditableBufferedReader extends BufferedReader {
 			ch = read();
 			if(ch > 31) {
 				linea.addChar((char) ch);
+				//System.out.print("\033[@");
+				System.out.print((char) ch);
 			}
 			else {
 				switch (ch) {
 				case DERECHA:
+					if(linea.getPosition() < linea.getLength()){
+						System.out.print("\033[C");
+					}
 					linea.incPosition();
 					break;
 				case IZQUIERDA:
 					//linea.refresh(5);
 					linea.decPosition();
+					System.out.print("\033[D");
 					break;
 				case HOME:
-					linea.goToHome();
+					System.out.print("\033["+linea.goToHome()+"D");
 					break;
 				case END:
-					linea.goToEnd();
+					System.out.print("\033["+linea.goToEnd()+"C");
 					break;
 				case BACKSPACE:
 					linea.backspace();
+					System.out.print("\033[D");
+					System.out.print("\033[P");
 					break;
 				default:
 					break;
@@ -98,7 +106,6 @@ public class EditableBufferedReader extends BufferedReader {
 					
 			}
 		} while(ch != 13 && ch != 3);
-		System.out.print("\b\b  ");
 		unsetRaw();
 		return linea.getContent();
 	}
