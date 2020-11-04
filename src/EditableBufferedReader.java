@@ -20,7 +20,7 @@ public class EditableBufferedReader extends BufferedReader {
 	}
 	
 	public void setRaw() {
-	    String[] cmd = {"/bin/sh", "-c", "stty raw </dev/tty"};
+	    String[] cmd = {"/bin/sh", "-c", "stty raw -echo </dev/tty"};
 	       try {
 			Runtime.getRuntime().exec(cmd).waitFor();
 		} catch (InterruptedException e) {
@@ -33,7 +33,7 @@ public class EditableBufferedReader extends BufferedReader {
 	}
 
 	public void unsetRaw(){
-		String[] cmd = {"/bin/sh", "-c", "stty cooked </dev/tty"};
+		String[] cmd = {"/bin/sh", "-c", "stty cooked echo </dev/tty"};
 	       try {
 			Runtime.getRuntime().exec(cmd).waitFor();
 		} catch (InterruptedException e) {
