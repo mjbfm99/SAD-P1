@@ -66,14 +66,13 @@ public class EditableBufferedReader extends BufferedReader {
 	
 	public String readLine() throws IOException {
 		Line linea = new Line();
-		System.out.print("\033[H\033[2J"); //poner 0,0
 		setRaw();
 		int ch = 0;
 		do {
 			ch = read();
 			if(ch > 31) {
 				linea.addChar((char) ch);
-				//System.out.print("\033[@");
+				System.out.print("\033[@");
 				System.out.print((char) ch);
 			}
 			else {
@@ -93,7 +92,10 @@ public class EditableBufferedReader extends BufferedReader {
 					System.out.print("\033["+linea.goToHome()+"D");
 					break;
 				case END:
-					System.out.print("\033["+linea.goToEnd()+"C");
+                    if(linea.getPosition() != linea.getLength()){
+                        System.out.print("\033["+linea.goToEnd()+"C");
+                        linea.setPosition(linea.getLength());
+                    }
 					break;
 				case BACKSPACE:
 					linea.backspace();

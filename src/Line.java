@@ -49,15 +49,7 @@ public class Line {
 	}
 	
 	public int goToEnd() {
-		if(cur_pos > 0) {
-			int dif = sb.length() - cur_pos;
-			cur_pos = sb.length();
-			return dif;
-		}else{
-			cur_pos = sb.length();
-			return cur_pos;
-		}
-
+        return getLength() - getPosition();
 	}
 
 	// public void refresh(int n) {
