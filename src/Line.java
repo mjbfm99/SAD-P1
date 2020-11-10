@@ -1,6 +1,6 @@
 import java.lang.StringBuilder;
 
-public class Line { // Model
+public class Line {
 	private int cur_pos;
 	//private String content;
 	private StringBuilder sb;

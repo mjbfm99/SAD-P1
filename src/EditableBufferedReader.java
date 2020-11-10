@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 
-public class EditableBufferedReader extends BufferedReader { // Controller
+public class EditableBufferedReader extends BufferedReader { 
 
 	private final static int DERECHA = -62;
 	private final static int IZQUIERDA = -61;
