@@ -4,3 +4,5 @@ An editable Java BufferedReader with:
 - Home, End support
 - Overwrite mode
 - Del and backspace support
+
+**MVC implementation available in mvc branch**
