@@ -79,6 +79,8 @@ public class Line extends Observable { // Model (Observable)
 	public void del() {
 		if(sb.length() != 0 && getPosition() != sb.length()) {
 			sb.deleteCharAt(cur_pos);
+			setChanged();
+			notifyObservers(new Console.Command(Console.Opcode.OCDEL));
 		}
 	}
 	
