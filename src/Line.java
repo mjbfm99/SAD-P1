@@ -1,7 +1,6 @@
-import java.io.IOException;
 import java.lang.StringBuilder;
 
-public class Line {
+public class Line { // Model
 	private int cur_pos;
 	//private String content;
 	private StringBuilder sb;

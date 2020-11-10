@@ -2,17 +2,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 
-public class EditableBufferedReader extends BufferedReader {
+public class EditableBufferedReader extends BufferedReader { // Controller
 
 	private final static int DERECHA = -62;
 	private final static int IZQUIERDA = -61;
-	private final static int ARRIBA = -64;
-	private final static int ABAJO = -63;
+	//private final static int ARRIBA = -64;
+	//private final static int ABAJO = -63;
 	private final static int HOME = -57;
 	private final static int END = -59;
 	private final static int SUPR = -78;
 	private final static int BACKSPACE = -2;
-	private final static int ESC = -102;
+	//private final static int ESC = -102;
 	private final static int CTRL_C = 3;
 	private final static int INSERT = -79; 
 	
@@ -119,7 +119,7 @@ public class EditableBufferedReader extends BufferedReader {
 				}
 					
 			}
-		} while(ch != 13 && ch != 3);
+		} while(ch != 13 && ch != CTRL_C);
 		unsetRaw();
 		return linea.getContent();
 	}
