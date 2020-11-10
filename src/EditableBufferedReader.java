@@ -10,10 +10,11 @@ public class EditableBufferedReader extends BufferedReader {
 	private final static int ABAJO = -63;
 	private final static int HOME = -57;
 	private final static int END = -59;
-	private final static int SUPR = -3;
+	private final static int SUPR = -78;
 	private final static int BACKSPACE = -2;
 	private final static int ESC = -102;
 	private final static int CTRL_C = 3;
+	private final static int INSERT = -79; 
 	
 	public EditableBufferedReader(Reader in) {
 		super(in);
@@ -48,19 +49,24 @@ public class EditableBufferedReader extends BufferedReader {
 	public int read() throws IOException {
 		int ret = super.read();
 		
+		
 		if(ret == 27) {
 			ret = super.read();
+			//System.out.print(" *"+ret+"*");
 			ret = super.read();
-				if(ret != 51) {
-					ret = ret - 129;
-				}
-				else {
-					ret = super.read() - 129;
-				}
+			//System.out.print(" *"+ret+"*");
+			if(ret != 51 && ret != 50) {
+				ret = ret - 129;
+			}
+			else {
+				super.read();
+				ret = ret - 129;
+			}
 		}
 		else if(ret == 127) {
 			ret = ret - 129;
 		}
+		//System.out.print(" *"+ret+"*");
 		return ret;
 	}
 	
@@ -84,7 +90,6 @@ public class EditableBufferedReader extends BufferedReader {
 					linea.incPosition();
 					break;
 				case IZQUIERDA:
-					//linea.refresh(5);
 					linea.decPosition();
 					System.out.print("\033[D");
 					break;
@@ -100,6 +105,13 @@ public class EditableBufferedReader extends BufferedReader {
 				case BACKSPACE:
 					linea.backspace();
 					System.out.print("\033[D");
+					System.out.print("\033[P");
+					break;
+				case INSERT:
+					linea.toggleInsert();
+					break;
+				case SUPR:
+					linea.del();
 					System.out.print("\033[P");
 					break;
 				default:

@@ -5,14 +5,20 @@ public class Line {
 	private int cur_pos;
 	//private String content;
 	private StringBuilder sb;
+	private boolean insertMode;
 	
 	public Line() {
 		cur_pos = 0;
 		sb = new StringBuilder("");
+		insertMode = false;
 	}
 	
 	public int getPosition() {
 		return cur_pos;
+	}
+	
+	public void toggleInsert() {
+		insertMode = !insertMode;
 	}
 
 	public int getLength() {
@@ -51,15 +57,6 @@ public class Line {
 	public int goToEnd() {
         return getLength() - getPosition();
 	}
-
-	// public void refresh(int n) {
-	// 	System.out.print("\b\b\b\b");
-	// 	System.out.print("\033[D");
-	// 	//System.out.print("\033[s");
-	// 	System.out.print(sb.substring(cur_pos));
-	// 	int offset = sb.length() - cur_pos;
-	// 	System.out.print("\033[" + offset + "D");
-	// }
 	
 	public void backspace() {
 		//Delete last character
@@ -70,13 +67,29 @@ public class Line {
 		}
 	}
 	
+	public void del() {
+		if(sb.length() != 0 && getPosition() != sb.length()) {
+			sb.deleteCharAt(cur_pos);
+		}
+	}
+	
 	public String getContent() {
 		return sb.toString();
 	}
 	
 	public void addChar(char c) {
-		sb.insert(cur_pos, c); //replace: setCharAt
-		incPosition();
+		if(!insertMode) {
+			sb.insert(cur_pos, c); 
+			incPosition();
+		}
+		else {
+			System.out.print("\033[P");
+			sb.insert(cur_pos, c);
+			if(cur_pos + 1 < sb.length()) {
+				sb.deleteCharAt(cur_pos + 1);
+			}
+			incPosition();
+		}
 	}
 	
 	public String toString() {

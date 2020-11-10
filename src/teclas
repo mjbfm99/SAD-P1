@@ -8,3 +8,4 @@ SUPR        27 91 51 126
 BACKSPACE   127
 ESC         27
 CTRL-C      3
+INSERT      27 91 50 126
