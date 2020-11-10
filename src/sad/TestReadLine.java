@@ -1,3 +1,4 @@
+package sad;
 import java.io.*;
 
 class TestReadLine {
