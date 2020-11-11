@@ -1,4 +1,4 @@
-package sad;
+package reader;
 import java.util.Observable;
 import java.util.Observer;
 

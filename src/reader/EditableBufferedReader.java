@@ -1,5 +1,5 @@
-package sad;
-import static sad.Constants.*;
+package reader;
+import static reader.Constants.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;

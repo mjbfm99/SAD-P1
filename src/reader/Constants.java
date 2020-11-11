@@ -1,4 +1,4 @@
-package sad;
+package reader;
 
 public final class Constants {
 	public final static int RIGHT = -62;
