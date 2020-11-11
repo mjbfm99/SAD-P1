@@ -1,6 +1,11 @@
-import java.lang.StringBuilder;
+package sad;
 
-public class Line {
+import java.lang.StringBuilder;
+import java.util.Observable;
+
+
+@SuppressWarnings("deprecation")
+public class Line extends Observable { // Model (Observable)
 	private int cur_pos;
 	//private String content;
 	private StringBuilder sb;
@@ -33,28 +38,31 @@ public class Line {
 	public void incPosition() {
 		if(cur_pos < sb.length()) {
 			cur_pos++;
+			setChanged();
+			notifyObservers(new Console.Command(Console.Opcode.OCR));
 		}
 	}
 	
 	public void decPosition() {
 		if(cur_pos != 0) {
 			cur_pos--;
-			// System.out.print("\033[H\033[2J");
-			// System.out.print(sb);
-			// System.out.print("\033[2D");
-			// System.out.print("\033[s");
 		}
+		setChanged();
+		notifyObservers(new Console.Command(Console.Opcode.OCL));
 	}
 	
-	public int goToHome() { // move you to the begin of the line = cursor pos
-								// and reset de var
-		int aux=cur_pos;
+	public void goToHome() { // move to beginning of the line and reset cur_pos
+		setChanged();
+		notifyObservers(new Console.Command(Console.Opcode.OCHOME, cur_pos));
 		cur_pos = 0;
-		return aux;
 	}
 	
-	public int goToEnd() {
-        return getLength() - getPosition();
+	public void goToEnd() {
+		if(getPosition() != getLength()){
+			setChanged();
+			notifyObservers(new Console.Command(Console.Opcode.OCEND, getLength() - getPosition()));
+			setPosition(getLength());
+		}
 	}
 	
 	public void backspace() {
@@ -63,12 +71,16 @@ public class Line {
 			//content = content.substring(0, content.length() - 1);
 			sb.deleteCharAt(cur_pos - 1);
 			decPosition();
+			setChanged();
+			notifyObservers(new Console.Command(Console.Opcode.OCBKSP));
 		}
 	}
 	
 	public void del() {
 		if(sb.length() != 0 && getPosition() != sb.length()) {
 			sb.deleteCharAt(cur_pos);
+			setChanged();
+			notifyObservers(new Console.Command(Console.Opcode.OCDEL));
 		}
 	}
 	
@@ -79,7 +91,8 @@ public class Line {
 	public void addChar(char c) {
 		if(!insertMode) {
 			sb.insert(cur_pos, c); 
-			incPosition();
+			//incPosition();
+			cur_pos++;
 		}
 		else {
 			System.out.print("\033[P");
@@ -87,7 +100,8 @@ public class Line {
 			if(cur_pos + 1 < sb.length()) {
 				sb.deleteCharAt(cur_pos + 1);
 			}
-			incPosition();
+			//incPosition();
+			cur_pos++;
 		}
 	}
 	
